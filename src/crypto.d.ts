@@ -1,19 +1,22 @@
-export function decrypt(
-  key: Uint8Array,
-  ciphertext: Uint8Array,
-  iv: Uint8Array
-): Promise<Uint8Array>;
+export interface KeyPairType {
+  pubKey: Uint8Array;
+  privKey: Uint8Array;
+}
 
-export function encrypt(
-  key: Uint8Array,
-  plaintext: Uint8Array,
-  iv: Uint8Array
-): Promise<Buffer>;
+export function generateKeyPair(): KeyPairType;
 
-export function calculateMAC(key: Buffer, data: Uint8Array): Uint8Array;
+export function calculateAgreement(
+  publicKey: Uint8Array,
+  privateKey: Uint8Array
+): Uint8Array;
 
-export function deriveSecrets(
-  key: Uint8Array,
-  salt: Buffer,
-  info: Buffer
-): [Buffer, Buffer];
+export function calculateSignature(
+  privateKey: Uint8Array,
+  message: Uint8Array
+): Uint8Array;
+
+export function verifySignature(
+  publicKey: Uint8Array,
+  message: Uint8Array,
+  signature: Uint8Array
+): boolean;
